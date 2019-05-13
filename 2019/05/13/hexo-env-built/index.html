@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="前言  准备做一个技术博客，记录自己在开发中遇到的问题。看github的源码，发现很多技术类的文章都使用md文件格式，也注意到包括国内的csdn，国外的stackflow都支持markdown的格式，所以准备用markdown格式搭建博客。   感谢各个博客网站的文章，决定使用hexo框架来搭建环境。并且自己会有在多台电脑上编辑的习惯，所以构建多台可以同时编辑的博客环境。 hexo框架主要是用来生">
+<meta name="keywords" content="hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="构建Hexo博客环境（github,coding)">
+<meta property="og:url" content="https://12345zp.github.com/2019/05/13/hexo-env-built/index.html">
+<meta property="og:site_name" content="Peng Zhang BLOG">
+<meta property="og:description" content="前言  准备做一个技术博客，记录自己在开发中遇到的问题。看github的源码，发现很多技术类的文章都使用md文件格式，也注意到包括国内的csdn，国外的stackflow都支持markdown的格式，所以准备用markdown格式搭建博客。   感谢各个博客网站的文章，决定使用hexo框架来搭建环境。并且自己会有在多台电脑上编辑的习惯，所以构建多台可以同时编辑的博客环境。 hexo框架主要是用来生">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://12345zp.github.com/2019/05/13/hexo-env-built/coding-set-sshkey.png">
+<meta property="og:image" content="https://12345zp.github.com/2019/05/13/hexo-env-built/github-set-sshkey.png">
+<meta property="og:updated_time" content="2019-05-13T10:01:16.092Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="构建Hexo博客环境（github,coding)">
+<meta name="twitter:description" content="前言  准备做一个技术博客，记录自己在开发中遇到的问题。看github的源码，发现很多技术类的文章都使用md文件格式，也注意到包括国内的csdn，国外的stackflow都支持markdown的格式，所以准备用markdown格式搭建博客。   感谢各个博客网站的文章，决定使用hexo框架来搭建环境。并且自己会有在多台电脑上编辑的习惯，所以构建多台可以同时编辑的博客环境。 hexo框架主要是用来生">
+<meta name="twitter:image" content="https://12345zp.github.com/2019/05/13/hexo-env-built/coding-set-sshkey.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>构建Hexo博客环境（github,coding)</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+    <link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+    <!-- jquery -->
+    <script src="/lib/jquery/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="banner">
+<div id="blogtitel" class="blogtitel">Peng Zhang BLOG</div>
+<ul id="wrapper" class="wrapper">
+  <div class="sun">
+    <div class="star"></div>
+  </div>
+  <div class="mercury">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
+  </div>
+  <div class="venus">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
+  </div>
+  <div class="earth">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="mars">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="jupiter">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+</ul>
+</div>
+
+    <div class="background">
+      
+        <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/home/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/12345zp">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2019/05/10/hexo/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$("#i-next").toggle();" onmouseout="$("#i-next").toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$("#i-top").toggle();" onmouseout="$("#i-top").toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$("#i-share").toggle();" onmouseout="$("#i-share").toggle();" onclick="$("#share").toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://12345zp.github.com/2019/05/13/hexo-env-built/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://12345zp.github.com/2019/05/13/hexo-env-built/&text=构建Hexo博客环境（github,coding)"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://12345zp.github.com/2019/05/13/hexo-env-built/&title=构建Hexo博客环境（github,coding)"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://12345zp.github.com/2019/05/13/hexo-env-built/&is_video=false&description=构建Hexo博客环境（github,coding)"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=构建Hexo博客环境（github,coding)&body=Check out this article: https://12345zp.github.com/2019/05/13/hexo-env-built/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://12345zp.github.com/2019/05/13/hexo-env-built/&title=构建Hexo博客环境（github,coding)"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://12345zp.github.com/2019/05/13/hexo-env-built/&title=构建Hexo博客环境（github,coding)"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://12345zp.github.com/2019/05/13/hexo-env-built/&title=构建Hexo博客环境（github,coding)"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://12345zp.github.com/2019/05/13/hexo-env-built/&title=构建Hexo博客环境（github,coding)"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://12345zp.github.com/2019/05/13/hexo-env-built/&name=构建Hexo博客环境（github,coding)&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#构建步骤"><span class="toc-number">2.</span> <span class="toc-text">构建步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-注册github，coding-net的账号"><span class="toc-number">2.1.</span> <span class="toc-text">1.  注册github，coding.net的账号</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-注册github及设置博客仓储"><span class="toc-number">2.1.1.</span> <span class="toc-text">1.1 注册github及设置博客仓储</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-注册腾讯云开发者平台及设置博客仓储和项目仓储"><span class="toc-number">2.1.2.</span> <span class="toc-text">1.2 注册腾讯云开发者平台及设置博客仓储和项目仓储</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-任务小结"><span class="toc-number">2.1.3.</span> <span class="toc-text">1.3 任务小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-搭建hexo环境及选择主题"><span class="toc-number">2.2.</span> <span class="toc-text">2. 搭建hexo环境及选择主题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-安装node-js"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.1 安装node.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-安装git"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2 安装git</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-安装hexo"><span class="toc-number">2.2.3.</span> <span class="toc-text">2.3 安装hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-设置hero"><span class="toc-number">2.2.4.</span> <span class="toc-text">2.4 设置hero</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-任务小结"><span class="toc-number">2.2.5.</span> <span class="toc-text">2.5 任务小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-hexo的发布"><span class="toc-number">2.3.</span> <span class="toc-text">3. hexo的发布</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-生成ssh-key"><span class="toc-number">2.3.1.</span> <span class="toc-text">3.1 生成ssh key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-设置公开key到腾讯软件中心的git仓库"><span class="toc-number">2.3.2.</span> <span class="toc-text">3.2 设置公开key到腾讯软件中心的git仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-设置公开key到腾讯软件中心的git仓库"><span class="toc-number">2.3.3.</span> <span class="toc-text">3.3 设置公开key到腾讯软件中心的git仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-任务小结"><span class="toc-number">2.3.4.</span> <span class="toc-text">3.4 任务小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-构建多台电脑发布的环境"><span class="toc-number">2.4.</span> <span class="toc-text">4. 构建多台电脑发布的环境</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-number">3.</span> <span class="toc-text">参考</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考-1"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#最后"><span class="toc-number">5.</span> <span class="toc-text">最后</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+      
+      <div class="content index width mx-auto px2 my4">
+          
+          <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        构建Hexo博客环境（github,coding)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Peng Zhang BLOG</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2019-05-13T07:46:59.000Z" itemprop="datePublished">2019-05-13</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/hexo/">hexo</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a><a href="#pre-word">前言</a></h1><p>  准备做一个技术博客，记录自己在开发中遇到的问题。看github的源码，发现很多技术类的文章都使用md文件格式，也注意到包括国内的csdn，国外的stackflow都支持markdown的格式，所以准备用markdown格式搭建博客。</p>
+<p>  感谢各个博客网站的文章，决定使用hexo框架来搭建环境。并且自己会有在多台电脑上编辑的习惯，所以构建多台可以同时编辑的博客环境。</p>
+<p>hexo框架主要是用来生成共同的header，footer以及有友好的发布环境，博客的内容还是有markdown来书写。</p>
+<p>主要的技术point如下：</p>
+<ul>
+<li><a href="#step1">1. 注册github，coding.net的账号</a></li>
+<li><a href="#step2">2. 搭建hexo环境及选择主题</a></li>
+<li><a href="#step3">3. hexo的发布</a></li>
+<li><a href="#step4">4. 构建多台电脑发布的环境</a></li>
+</ul>
+<h1 id="构建步骤"><a href="#构建步骤" class="headerlink" title="构建步骤"></a>构建步骤</h1><h2 id="1-注册github，coding-net的账号"><a href="#1-注册github，coding-net的账号" class="headerlink" title="1.  注册github，coding.net的账号"></a><span id="step1">1.  注册github，coding.net的账号</span></h2><p>由于国内环境访问github速度较慢，所以在github发布的同时，在国内的腾讯云开发者平台（codding.net)上也同时发布博客。以下是构建两个环境的方法。</p>
+<h3 id="1-1-注册github及设置博客仓储"><a href="#1-1-注册github及设置博客仓储" class="headerlink" title="1.1 注册github及设置博客仓储"></a>1.1 注册github及设置博客仓储</h3><p>注册方法参照官网，去注册一个账号吧。<a href="https://github.com" target="_blank" rel="noopener">Github</a><br>注册完后，添加一个公开的仓库。</p>
+<ul>
+<li><span style="color:red"><em>名称必须是：github用户名.github.io</em> </span></li>
+</ul>
+<p>只有这样，将来要部署到GitHub page的时候，才会被识别，也就是通过<span style="color:red">自己的用户名.github.io</span>去访问自己的博客。</p>
+<h3 id="1-2-注册腾讯云开发者平台及设置博客仓储和项目仓储"><a href="#1-2-注册腾讯云开发者平台及设置博客仓储和项目仓储" class="headerlink" title="1.2 注册腾讯云开发者平台及设置博客仓储和项目仓储"></a>1.2 注册腾讯云开发者平台及设置博客仓储和项目仓储</h3><p>同理，在<a href="https://dev.tencent.com/login" target="_blank" rel="noopener">腾讯云开发者平台</a>里添加一个公开的仓库。</p>
+<ul>
+<li><span style="color:red"><em>名称必须是：用户名.coding.me</em>    </span></li>
+</ul>
+<p>以后也可以通过 自己的用户名.coding.me来访问</p>
+<h3 id="1-3-任务小结"><a href="#1-3-任务小结" class="headerlink" title="1.3 任务小结"></a>1.3 任务小结</h3><table>
+<thead>
+<tr>
+<th>任务编号</th>
+<th>任务名称</th>
+<th>要求 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>task1</td>
+<td>建立github账号并且添加博客仓库</td>
+<td>仓库名称： github用户名.github.io</td>
+<td></td>
+</tr>
+<tr>
+<td>task2</td>
+<td>建立腾讯云账号并且添加博客仓库</td>
+<td>仓库名称： 用户名.coding.me</td>
+<td></td>
+</tr>
+<tr>
+<td>task3</td>
+<td>在腾讯云里添加hexo的代码仓库（私有）</td>
+<td>仓库名称：hexo-source-backup</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-搭建hexo环境及选择主题"><a href="#2-搭建hexo环境及选择主题" class="headerlink" title="2. 搭建hexo环境及选择主题"></a><span id="step2">2. 搭建hexo环境及选择主题</span></h2><p> Hexo是基于nodeJs编写的，所以首先安装node.js</p>
+<h3 id="2-1-安装node-js"><a href="#2-1-安装node-js" class="headerlink" title="2.1 安装node.js"></a>2.1 安装node.js</h3><p> 我用的是windows10，所以通过<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">node.js</a>站点下载安装了node.js</p>
+<h3 id="2-2-安装git"><a href="#2-2-安装git" class="headerlink" title="2.2 安装git"></a>2.2 安装git</h3><p> 我用的是windows10，所以通过<a href="https://pc.qq.com/detail/13/detail_22693.html" target="_blank" rel="noopener">腾讯软件中心</a>站点下载安装了git。 <em>官网速度太慢，所以建议用以上链接下载</em></p>
+<h3 id="2-3-安装hexo"><a href="#2-3-安装hexo" class="headerlink" title="2.3 安装hexo"></a>2.3 安装hexo</h3><p>git和node.js安装好后，就可以开始安装hexo了，你首先创建一个blog的文件夹。选中文件夹后右键选择【Git Bash here】, 会跳出git的命令窗口。</p>
+<p>输入命令</p>
+<pre><code>$ npm install -g hexo-cli
+$ hexo -v</code></pre>
+安装完成后确认
+<pre><code>$ ls -ltr
+-rw-r--r-- 1  1049089   2206 5月  10 17:33 _config.yml
+-rw-r--r-- 1  1049089    174 5月  13 17:13 db.json
+drwxr-xr-x 1  1049089      0 5月  10 15:20 node_modules/
+-rw-r--r-- 1  1049089    516 5月  10 14:55 package.json
+-rw-r--r-- 1 1049089 165056 5月  10 14:55 package-lock.json
+drwxr-xr-x 1  1049089      0 5月  13 16:58 public/
+-rw-r--r-- 1  1049089     14 5月  13 15:36 README.md
+drwxr-xr-x 1  1049089      0 5月  10 12:56 scaffolds/
+drwxr-xr-x 1  1049089      0 5月  10 18:13 source/
+drwxr-xr-x 1  1049089      0 5月  13 15:38 themes/
+</code></pre>
+
+<h3 id="2-4-设置hero"><a href="#2-4-设置hero" class="headerlink" title="2.4 设置hero"></a>2.4 设置hero</h3><p>主要设置_config.yml</p>
+<p><pre><code>….<br>title:  BLOG<br>subtitle: Share my ideas with you！<br>description: <strong>*</strong><br>keywords: <strong>**</strong><br>author: USERNAME<br>language:<br>timezone:<br>…..<br>deploy:<br>  type: git<br>  repo:<br>   github: <a href="https://github.com/xxxxx/xxxxx.github.io.git,master" target="_blank" rel="noopener">https://github.com/xxxxx/xxxxx.github.io.git,master</a><br>   coding: <a href="https://git.dev.tencent.com/xxxxxx/xxxxxx.coding.me.git,master" target="_blank" rel="noopener">https://git.dev.tencent.com/xxxxxx/xxxxxx.coding.me.git,master</a></code></pre></p>
+<p><br>这个里面配置博客的名称以及发布环境的设置。 <span style="color:blue">注意冒号后边必须有半角的空格。</span></p>
+<h3 id="2-5-任务小结"><a href="#2-5-任务小结" class="headerlink" title="2.5 任务小结"></a>2.5 任务小结</h3><table>
+<thead>
+<tr>
+<th>任务编号</th>
+<th>任务名称</th>
+<th>要求 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>task4</td>
+<td>安装node.js</td>
+<td>-</td>
+</tr>
+<tr>
+<td>task5</td>
+<td>安装git</td>
+<td>-</td>
+</tr>
+<tr>
+<td>task6</td>
+<td>安装hexo</td>
+<td>-</td>
+</tr>
+<tr>
+<td>task7</td>
+<td>设置_config.yml</td>
+<td>设置发布信息到环境</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-hexo的发布"><a href="#3-hexo的发布" class="headerlink" title="3. hexo的发布"></a><span id="step3">3. hexo的发布</span></h2><h3 id="3-1-生成ssh-key"><a href="#3-1-生成ssh-key" class="headerlink" title="3.1 生成ssh key"></a>3.1 生成ssh key</h3><p>首先创建ssh key用来访问发布的环境</p>
+<p><pre><code>$ ls -ltr ~/.ssh  ## 确认没有内容<br>$ ssh-keygen -t rsa -C “youremail”<br>$ ls -ltr ~/.ssh<br>total 9<br>-rw-r–r– 1 username 1049089 1876 5月  10 13:39 id_rsa<br>-rw-r–r– 1 username 1049089  397 5月  10 13:39 id_rsa.pub<br>-rw-r–r– 1 username 1049089  817 5月  10 17:26 known_hosts<br></code></pre><br>检查是否生成生成id_rsa, id_rsa.pub文件。</p>
+<p>然后将公开key分别设置到<a href="https://github.com" target="_blank" rel="noopener">Github</a>和<a href="https://pc.qq.com/detail/13/detail_22693.html" target="_blank" rel="noopener">腾讯软件中心</a></p>
+<h3 id="3-2-设置公开key到腾讯软件中心的git仓库"><a href="#3-2-设置公开key到腾讯软件中心的git仓库" class="headerlink" title="3.2 设置公开key到腾讯软件中心的git仓库"></a>3.2 设置公开key到腾讯软件中心的git仓库</h3><p><a href="https://pc.qq.com/detail/13/detail_22693.html" target="_blank" rel="noopener">腾讯软件中心</a> -&gt; 个人设置 -&gt; 新增公钥按钮点击</p>
+<p><img src="coding-set-sshkey.png" alt="设置画面"></p>
+<ul>
+<li>公钥名称：任意</li>
+<li>公钥内容：id_rsa.pub的内容复制粘贴到这里</li>
+</ul>
+<p>点击【添加】按钮完成设置</p>
+<h3 id="3-3-设置公开key到腾讯软件中心的git仓库"><a href="#3-3-设置公开key到腾讯软件中心的git仓库" class="headerlink" title="3.3 设置公开key到腾讯软件中心的git仓库"></a>3.3 设置公开key到腾讯软件中心的git仓库</h3><p><a href="https://github.com" target="_blank" rel="noopener">Github</a> -&gt; 个人设置settings -&gt; SSH and GPG keys -&gt; Add SSH key 点击</p>
+<p><img src="github-set-sshkey.png" alt="设置画面"></p>
+<ul>
+<li>Title：任意</li>
+<li>key：id_rsa.pub的内容复制粘贴到这里</li>
+</ul>
+<p>点击【添加】按钮完成设置</p>
+<h3 id="3-4-任务小结"><a href="#3-4-任务小结" class="headerlink" title="3.4 任务小结"></a>3.4 任务小结</h3><table>
+<thead>
+<tr>
+<th>任务编号</th>
+<th>任务名称</th>
+<th>要求 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>task8</td>
+<td>生成ssh key</td>
+<td>-</td>
+</tr>
+<tr>
+<td>task9</td>
+<td>ssh的公钥设置到腾讯云开发中心</td>
+<td>-</td>
+</tr>
+<tr>
+<td>task10</td>
+<td>ssh的公钥设置到github</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-构建多台电脑发布的环境"><a href="#4-构建多台电脑发布的环境" class="headerlink" title="4. 构建多台电脑发布的环境"></a><span id="step4">4. 构建多台电脑发布的环境</span></h2><p>TODO.</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://blog.csdn.net/nightmare_dimple/article/details/86661514" target="_blank" rel="noopener">利用Hexo在多台电脑上提交和更新博客</a></li>
+<li><a href="http://baixin.io:8000/2015/08/HEXO%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" target="_blank" rel="noopener">潘柏信:HEXO搭建个人博客</a></li>
+<li><a href="http://www.markdown.cn/#span-elements" target="_blank" rel="noopener">Markdown教程</a></li>
+</ul>
+<h1 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h1><ul>
+<li>搭建多语言的环境</li>
+<li>知识点封层管理</li>
+<li>追加评论功能</li>
+<li>追加网站数据访问分析功能</li>
+</ul>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>关注我的博客： </p>
+<ul>
+<li><a href="z12321p.codding.me">腾讯云站点</a>  </li>
+<li><a href="12345zp.github.io">gitHub站点</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+      </div>
+      
+       <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/home/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/12345zp">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#构建步骤"><span class="toc-number">2.</span> <span class="toc-text">构建步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-注册github，coding-net的账号"><span class="toc-number">2.1.</span> <span class="toc-text">1.  注册github，coding.net的账号</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-注册github及设置博客仓储"><span class="toc-number">2.1.1.</span> <span class="toc-text">1.1 注册github及设置博客仓储</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-注册腾讯云开发者平台及设置博客仓储和项目仓储"><span class="toc-number">2.1.2.</span> <span class="toc-text">1.2 注册腾讯云开发者平台及设置博客仓储和项目仓储</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-任务小结"><span class="toc-number">2.1.3.</span> <span class="toc-text">1.3 任务小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-搭建hexo环境及选择主题"><span class="toc-number">2.2.</span> <span class="toc-text">2. 搭建hexo环境及选择主题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-安装node-js"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.1 安装node.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-安装git"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2 安装git</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-安装hexo"><span class="toc-number">2.2.3.</span> <span class="toc-text">2.3 安装hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-设置hero"><span class="toc-number">2.2.4.</span> <span class="toc-text">2.4 设置hero</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-任务小结"><span class="toc-number">2.2.5.</span> <span class="toc-text">2.5 任务小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-hexo的发布"><span class="toc-number">2.3.</span> <span class="toc-text">3. hexo的发布</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-生成ssh-key"><span class="toc-number">2.3.1.</span> <span class="toc-text">3.1 生成ssh key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-设置公开key到腾讯软件中心的git仓库"><span class="toc-number">2.3.2.</span> <span class="toc-text">3.2 设置公开key到腾讯软件中心的git仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-设置公开key到腾讯软件中心的git仓库"><span class="toc-number">2.3.3.</span> <span class="toc-text">3.3 设置公开key到腾讯软件中心的git仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-任务小结"><span class="toc-number">2.3.4.</span> <span class="toc-text">3.4 任务小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-构建多台电脑发布的环境"><span class="toc-number">2.4.</span> <span class="toc-text">4. 构建多台电脑发布的环境</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-number">3.</span> <span class="toc-text">参考</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考-1"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#最后"><span class="toc-number">5.</span> <span class="toc-text">最后</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://12345zp.github.com/2019/05/13/hexo-env-built/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://12345zp.github.com/2019/05/13/hexo-env-built/&text=构建Hexo博客环境（github,coding)"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://12345zp.github.com/2019/05/13/hexo-env-built/&title=构建Hexo博客环境（github,coding)"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://12345zp.github.com/2019/05/13/hexo-env-built/&is_video=false&description=构建Hexo博客环境（github,coding)"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=构建Hexo博客环境（github,coding)&body=Check out this article: https://12345zp.github.com/2019/05/13/hexo-env-built/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://12345zp.github.com/2019/05/13/hexo-env-built/&title=构建Hexo博客环境（github,coding)"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://12345zp.github.com/2019/05/13/hexo-env-built/&title=构建Hexo博客环境（github,coding)"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://12345zp.github.com/2019/05/13/hexo-env-built/&title=构建Hexo博客环境（github,coding)"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://12345zp.github.com/2019/05/13/hexo-env-built/&title=构建Hexo博客环境（github,coding)"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://12345zp.github.com/2019/05/13/hexo-env-built/&name=构建Hexo博客环境（github,coding)&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$("#toc-footer").toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$("#share-footer").toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$("#nav-footer").toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+      
+      <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Peng Zhang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/home/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/12345zp">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+      <script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+<!-- Disqus Comments -->
+
+
+    </div>
+</body>
+</html>
