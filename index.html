@@ -76,7 +76,7 @@
     root: '/',
     scheme: 'Gemini',
     version: '7.1.2',
-    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
     back2top: true,
     back2top_sidebar: false,
     fancybox: true,
@@ -176,7 +176,7 @@
     
   
 
-  <div class="container sidebar-position-right 
+  <div class="container sidebar-position-left 
   page-home">
     <div class="headband"></div>
 
@@ -333,6 +333,373 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://12345zp.github.com/2019/06/26/proxyaccess/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zero">
+      <meta itemprop="description" content="Time To Make A Change!">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zero BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/26/proxyaccess/" class="post-title-link" itemprop="url">利用apache和putty 实现外网443端口访问本地8080端口</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-26 18:37:43 / Modified: 19:09:32" itemprop="dateCreated datePublished" datetime="2019-06-26T18:37:43+08:00">2019-06-26</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/network/" itemprop="url" rel="index"><span itemprop="name">network</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/network/开发环境构建/" itemprop="url" rel="index"><span itemprop="name">开发环境构建</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="[前言]"></a>[前言]</h2><p> 在开发中，经常需要使用外部服务实现一些功能，如微信，科大讯飞的一些功能。这些功能中会要求回调（callback）服务器端的功能。</p>
+<p> 大家也知道，一般开发环境基于内网环境，没有global ip。所以开发时，如何测试外部服务的回调是个难题。</p>
+<p> 本文主要是记录如何利用服务器的端口映射来实现外部服务调取开发机（8080）的方法，望可以帮助大家。</p>
+<h2 id="设置的前提条件"><a href="#设置的前提条件" class="headerlink" title="[设置的前提条件]"></a>[设置的前提条件]</h2><ol>
+<li>一台有固定IP（gloabl ip）的服务器，有root的访问权限</li>
+<li>apache软件安装好</li>
+<li><p>本地环境有putty软件</p>
+<h2 id="实施步骤"><a href="#实施步骤" class="headerlink" title="[实施步骤]"></a>[实施步骤]</h2></li>
+</ol>
+<p>假设我们本地要访问 localhost:8080/wx的服务。</p>
+<ol>
+<li>设置putty的tunnel，实现本地端口和服务器端口的映射</li>
+</ol>
+<p>服务器端的端口：3000<br>本地端口： 8080</p>
+<img src="/2019/06/26/proxyaccess/putty.PNG" title="putty设置画面">
+<p>注意： 这个设置设置好后，点击【add】按钮后，将设置保存。</p>
+<ol start="2">
+<li>apache里设置代理</li>
+</ol>
+<p>在apache的ssl.conf 添加443 转接 3000的代理</p>
+<pre><code>
+ProxyPass /wx http://127.0.0.1:3000/wx
+ProxyPassReverse /wx http://127.0.0.1:3000/wx
+</code></pre>
+
+<p>然后重启httpd服务</p>
+<p>以上就是设置完了以后，</p>
+<ul>
+<li>访问https：xxxx.xxx.xxx/wx</li>
+<li>服务器的apache 将起跳转到 本地的3000端口</li>
+<li>putty的tunnal 把服务的3000端口映射到本地的8080（开发机器）</li>
+</ul>
+<p>这样就是想了外部对本地机器的访问。</p>
+<p>以上apache及putty的使用方法没有进行详细的记述，大家在百度或者谷歌上搜索具体的博客去参考。</p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>关注我的博客： </p>
+<ul>
+<li><a href="https://z12321p.codding.me" target="_blank" rel="noopener">腾讯云站点</a>  </li>
+<li><a href="https://12345zp.github.io" target="_blank" rel="noopener">gitHub站点</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://12345zp.github.com/2019/06/11/hexo-leancloud/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zero">
+      <meta itemprop="description" content="Time To Make A Change!">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zero BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/11/hexo-leancloud/" class="post-title-link" itemprop="url">hexo install learnCloud</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-11 19:12:03 / Modified: 19:13:58" itemprop="dateCreated datePublished" datetime="2019-06-11T19:12:03+08:00">2019-06-11</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Hexo教程/" itemprop="url" rel="index"><span itemprop="name">Hexo教程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在hexo的nexT主题里添加Leancloud用来统计统计文章阅读量</p>
+<h2 id="1-配置步骤"><a href="#1-配置步骤" class="headerlink" title="1 配置步骤"></a>1 配置步骤</h2><h3 id="1-1-注册LeanCloud账号"><a href="#1-1-注册LeanCloud账号" class="headerlink" title="1.1 注册LeanCloud账号"></a>1.1 注册LeanCloud账号</h3>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1438,7 +1805,7 @@ $ npm install
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1461,7 +1828,11 @@ $ npm install
                     
                       
                     
-                    <span class="site-state-item-count">3</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -1486,7 +1857,11 @@ $ npm install
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
